@@ -10,30 +10,35 @@ void solve()
     vector<long long> arr(n);
     for (int i = 0; i < n; i++)
         cin >> arr[i];
-    int cnt = 0;
-    if (arr[0] == 0)
+    int zeroCnt = 0;
+    for (int it : arr)
     {
-        for (int i = 0; i < n - 1; i++)
+        if (it == 0)
+            zeroCnt++;
+    }
+    bool found_zero = false;
+    int left = 0, right = n - 1;
+    if (zeroCnt == n)
+    {
+        cout << 0 << endl;
+        return;
+    }
+    while (arr[left] == 0)
+        left++;
+    while (arr[right] == 0)
+        right--;
+    for (int i = left; i <= right; i++)
+    {
+        if (arr[i] == 0)
         {
-            if (arr[i] == 0 && arr[i + 1] != 0)
-            {
-                cnt++;
-            }
+            found_zero = true;
+            break;
         }
     }
+    if (!found_zero)
+        cout << 1 << endl;
     else
-    {
-        for (int i = 0; i < n - 1; i++)
-        {
-            if (arr[i] != 0 && arr[i + 1] == 0)
-            {
-                cnt++;
-            }
-        }
-        if (arr[n - 1] != 0)
-            cnt++;
-    }
-    cout << cnt << endl;
+        cout << 2 << endl;
 }
 
 // driver code
